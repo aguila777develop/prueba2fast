@@ -101,10 +101,10 @@ const usuariosGet =  async(req = request, res = response) => {
 
 
     // desestrutruramos solo guarda lo que esta dentro de las llaves
-     const {tipo,nombre, correo,clave,login, fecNacimiento,departamento,ciudad,telefono,estado,tipodoc,sexo, expedido,detalle, documento} = req.body; //PASO 2.1
+     const {tipo,nombre,primerApellido,segundoApellido, fecNacimiento, correo,departamento,ciudad,telefono,login,clave, docid,expedido,extension,nacionalidad, sexo,telfEmergencia,img,estado, detalle, tipodoc,nombreDoc,documento} = req.body; //PASO 2.1
      
     //  const usuario = new Usuario(body); // PASO 1.2
-     const usuario = new Usuario({tipo,nombre, correo,clave,login, fecNacimiento,departamento,ciudad,telefono,estado,tipodoc,sexo, expedido, detalle, documento}); //PASO 2.2
+     const usuario = new Usuario({tipo,nombre,primerApellido,segundoApellido, fecNacimiento, correo,departamento,ciudad,telefono,login,clave, docid,expedido,extension,nacionalidad, sexo,telfEmergencia,img,estado, detalle, tipodoc,nombreDoc,documento}); //PASO 2.2
 
      
    

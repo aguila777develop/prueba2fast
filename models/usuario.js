@@ -55,6 +55,7 @@ const UsuarioSchema = Schema({
     expedido:{
         type: String,
         required: ['LPZ','CBA','SCZ','BEN','PAN','TJA','CHQ','ORU','PTS'],
+        default: false
     },
     extension:{
         type: String,
@@ -82,7 +83,7 @@ const UsuarioSchema = Schema({
     detalle:[{
         tipodoc:{
             type: Number,
-            required: true,
+            required: false,
             
         },
         nombreDoc:{
