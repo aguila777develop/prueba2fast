@@ -152,7 +152,7 @@ const usuariosGet =  async(req = request, res = response) => {
     // const usuario = await Usuario.findByIdAndDelete(id);
     
     // Forma recomendada borrado logico solo cambiamos el estado del usaurio
-    // es la mejor opcion
+    // es la mejor opcion 
     const usuario = await Usuario.findByIdAndUpdate(id,{ estado: false});
 
     res.json({
