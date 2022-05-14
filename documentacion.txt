@@ -1,0 +1,48 @@
+Proyecto prueba2fast    user aguila777develop aguilaSis porfirioramosfernandez@gmail.com
+****************************
+…or create a new repository on the command line
+******************************************************
+echo "# prueba2fast" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/aguila777develop/prueba2fast.git
+git push -u origin main
+********************************************************************
+
+or push an existing repository from the command line
+**********************************************************
+git remote add origin https://github.com/aguila777develop/prueba2fast.git
+git branch -M main
+git push -u origin main
+
+
+*****************************
+****   BAse de datos  ********
+*****************************
+Mongo atlas login porfirioramosfernandez@gmail.com
+
+https://cloud.mongodb.com/v2/627da267f424550e59c99961#setup/access?includeToast=true
+
+
+***********************
+usuario de la BD
+USER=aguiladevelopfast
+PASS=7TXEJ3xfKwNLtMxL
+
+aguila
+s1stemas
+
+R9aVFvqd5jOmtQzi
+
+link de acceso a la base de datos
+MONGODB_CONN=mongodb+srv://aguiladevelopfast:R8eLGWhoiU9NvCmm@miclusterfast.gp0m3.mongodb.net/test
+
+
+para la conexion de la BD se esta utilizando mongoose es Modelador de Objetos ODM;
+facilita ´
+insercion 
+lectura
+querys va limpiar
+para prevenir query inyeccion en nuestros comandos

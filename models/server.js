@@ -1,7 +1,8 @@
 const express = require('express')
 const cors = require('cors');
 
-
+// importacion de la configuracion de la DB
+const { dbConnection } = require('../database/config');
 
 class Server{
     constructor(){
@@ -18,6 +19,8 @@ class Server{
         this.ctokenServicioPath= '/api/ctokenServicio';
         this.cServicioPath= '/api/cServicio';
 
+        // Conectar a la Base de Datos
+        this.conectarDB();
 
         //Middlewares
         this.middlewares();
@@ -25,6 +28,13 @@ class Server{
         //Rutas de mi aplicacion
         this.routes();
     }
+
+    async conectarDB(){
+        await dbConnection();
+    }
+
+
+
     middlewares(){
         //CORS
         this.app.use(cors());
