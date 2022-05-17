@@ -9,7 +9,7 @@ const Usuario = require('../models/usuario');
 
 
 
-
+// ****************   GET   **************************************
 
 const usuariosGet =  async(req = request, res = response) => {
     // const query = req.query; // 1era forma
@@ -48,14 +48,15 @@ const usuariosGet =  async(req = request, res = response) => {
     
     //para solodevelver los usarios activos con estado true de forma rapida eficiente
     const {limite= 15, desde=0} = req.query;
-    const query ={ estado:true};
+    const query ={ estado:true};// query para que solo nos muestre los q tienen estado true
     
     const[total, usuarios] = await Promise.all([
-      Usuario.countDocuments(query),
+      Usuario.countDocuments(query),// consulta 1
       // Usuario.count(query),
-      Usuario.find(query)
-      .skip(desde)
-      .limit(limite)
+      Usuario.find(query)   // consulta 2
+      .skip(Number(desde))
+      // .limit(limite)
+      .limit(Number(limite))
 
     ]);
     
@@ -70,13 +71,15 @@ const usuariosGet =  async(req = request, res = response) => {
         usuarios
     });
   }
-
-  const usuariosPut =  async(req, res= response) => {
+// ******************************************************************
+// ****************   PUT  ******************************
+const usuariosPut =  async(req, res= response) => {
     // const id = req.params.id;
     // sihubeira mas podriamos desustructurar como abajo
     const { id } = req.params;
-    const { clave, correo, ...resto} = req.body;
+    const { _id, clave, correo, ...resto} = req.body;
 
+    // TODO: validar contra la BD
     if (clave) {
          //Encriptar la contraseña
       const salt = bcryptjs.genSaltSync();
@@ -92,7 +95,8 @@ const usuariosGet =  async(req = request, res = response) => {
         usuario
     });
   }
-
+// *********************************************************
+// *****************   POST   ********************************
   const usuariosPost = async (req, res = response) =>  {
 
    
@@ -101,23 +105,13 @@ const usuariosGet =  async(req = request, res = response) => {
 
 
     // desestrutruramos solo guarda lo que esta dentro de las llaves
-     const {tipo,nombre,primerApellido,segundoApellido, fecNacimiento, correo,departamento,ciudad,telefono,login,clave, docid,expedido,extension,nacionalidad, sexo,telfEmergencia,img,estado, detalle, tipodoc,nombreDoc,documento} = req.body; //PASO 2.1
+     const {tipo,nombre,primerApellido,segundoApellido, fecNacimiento, correo,departamento,ciudad,telefono,login,clave, docid,expedido,extension,nacionalidad, sexo,telfEmergencia,img,estado,rol, detalle, tipodoc,nombreDoc,documento} = req.body; //PASO 2.1
      
     //  const usuario = new Usuario(body); // PASO 1.2
-     const usuario = new Usuario({tipo,nombre,primerApellido,segundoApellido, fecNacimiento, correo,departamento,ciudad,telefono,login,clave, docid,expedido,extension,nacionalidad, sexo,telfEmergencia,img,estado, detalle, tipodoc,nombreDoc,documento}); //PASO 2.2
+     const usuario = new Usuario({tipo,nombre,primerApellido,segundoApellido, fecNacimiento, correo,departamento,ciudad,telefono,login,clave, docid,expedido,extension,nacionalidad, sexo,telfEmergencia,img,estado,rol, detalle, tipodoc,nombreDoc,documento}); //PASO 2.2
 
-     
-   
-     //Verificar si el Nombre de usuario existe
-    const existeLogin = await Usuario.findOne({login});
-
-    if (existeLogin) {
-      return res.status(400).json({
-        msg:'El Nombre de usuario ya está registrado'
-      });
-    }
-
-    // const isBase64doc =Usuario.detalle.isBase64({documento});
+         
+     // const isBase64doc =Usuario.detalle.isBase64({documento});
     // if (isBase64doc) {
     //   return res.status(400).json({
     //     msg:'No es base 64'
@@ -141,13 +135,14 @@ const usuariosGet =  async(req = request, res = response) => {
         usuario
     });
   }
+// **************************************************************
 
 
-
-
+// *******************  DELETE    **********************************
   const usuariosDelete = async(req, res = response) => {
     const { id } = req.params;
 
+    const uid = req.uid;
     // borrado fisico de la BD forma no recomendada
     // const usuario = await Usuario.findByIdAndDelete(id);
     
@@ -159,17 +154,18 @@ const usuariosGet =  async(req = request, res = response) => {
         "ok": true,
         //  "msg": "delete Api - usuariosDelete",
         //id
-        usuario
+        usuario, uid
     });
   }
-
+// *************************************************************
+// *******************    PATCH     *****************************
   const usuariosPatch = (req, res = response) => {
     res.json({
         "ok": true,
         "msg": "patch Api - usuariosPatch"
     });
   }
-
+// ***************************************************************
   module.exports ={
       usuariosGet,
       usuariosPut,

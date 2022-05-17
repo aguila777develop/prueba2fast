@@ -10,6 +10,7 @@ class Server{
         this.port = process.env.PORT;
 
         // Rutas
+        this.authPath = '/api/auth';
         this.usuariosPath = '/api/usuarios';
         this.posicionConductorPath = '/api/posicionConductor';
         this.creditoConductorPath= '/api/creditoConductor';
@@ -47,6 +48,7 @@ class Server{
     }
 
     routes(){
+       this.app.use(this.authPath, require('../routes/auth'));
        this.app.use(this.usuariosPath, require('../routes/usuarios'));
     //    this.app.use('/api/ausuario', require('../routes/driver'));
        this.app.use(this.ctokenConductorPath, require('../routes/ctokenConductor'));

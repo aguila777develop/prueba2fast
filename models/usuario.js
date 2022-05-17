@@ -4,7 +4,8 @@ const UsuarioSchema = Schema({
 
     tipo:{
         type: String,
-        required: ['U','C'],
+        required: true,
+        emun: ['U','C']
     },
     nombre:{
         type: String,
@@ -29,11 +30,13 @@ const UsuarioSchema = Schema({
     },
     departamento:{
         type: Number,
-        required: [1,2,3,4,5,6,7,8,9]
+        required: true,
+        emun: [1,2,3,4,5,6,7,8,9]
     },
     ciudad:{
         type: String,
-        required: ['La Paz','Cochabamba','Santa Cruz de la Sierra','Beni','Pando','Tarija','Oruro','Chuquisaca','Potosi'],
+        required: true,
+        emun: ['La Paz','Cochabamba','Santa Cruz de la Sierra','Beni','Pando','Tarija','Oruro','Chuquisaca','Potosi']
     },
     telefono:{
         type: String,
@@ -54,8 +57,9 @@ const UsuarioSchema = Schema({
     },
     expedido:{
         type: String,
-        required: ['LPZ','CBA','SCZ','BEN','PAN','TJA','CHQ','ORU','PTS'],
-        default: false
+        required: false,
+        emun:['LPZ','CBA','SCZ','BEN','PAN','TJA','CHQ','ORU','PTS']
+        
     },
     extension:{
         type: String,
@@ -63,11 +67,12 @@ const UsuarioSchema = Schema({
     },
     nacionalidad:{
         type: String,
-        default: 'BOLIVIANA'
+        default: 'BOLIVIANO'
     },
     sexo:{
         type: String,
-        required: ['F','M'],
+        required: true,
+        emun:['F','M']
     },
     telfEmergencia:{
         type: String,
@@ -80,6 +85,16 @@ const UsuarioSchema = Schema({
         type: Boolean,
         default: true
     },
+    rol:{
+        type: String,
+        required: true,
+        emun:['ADMIN_ROLE','USER_ROLE', 'DRIVER_ROLE']
+    },
+    google:{
+        type: Boolean,
+        default: false
+    },
+
     detalle:[{
         tipodoc:{
             type: Number,
@@ -92,7 +107,7 @@ const UsuarioSchema = Schema({
         },
         documento:{
             type: String,
-            required: true,
+            required: false,
         },  
     }]
     
@@ -101,7 +116,8 @@ const UsuarioSchema = Schema({
 });
 
 UsuarioSchema.methods.toJSON = function (){
-    const { __v, clave, ...usuario} = this.toObject();
+    const { __v, clave, _id, ...usuario} = this.toObject();
+    usuario.uid = _id
     return usuario;
 }
 

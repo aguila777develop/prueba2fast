@@ -1,4 +1,14 @@
 const Usuario = require('../models/usuario');
+const Role = require('../models/role');
+
+
+const  esRolValido =   async (rol = '') =>{
+      const existeRol = await Role.findOne({ rol });
+      if ( !existeRol ) {
+              throw new Error(`El rol ${ rol } no está registrado en la BD`);
+      }
+
+}
 
 
 const emailExiste = async(correo = '') => {
@@ -10,10 +20,19 @@ const existeEmail = await Usuario.findOne({correo});
   }
 }
 
+const existeLogin = async(login = '') => {
+  //Verificar si el correo existe
+const existeLogin = await Usuario.findOne({login});
+  if (existeLogin) {
+      throw new Error(`El Nombre de usuario: ${ login }, ya esta registrado `);
+    
+  }
+}
 
-const existeUsuarioPorId = async( id ) => {
 
-  // Verificar si el correo existe
+const existeUsuarioPorId = async( id = '' ) => {
+
+  // Verificar 
   const existeUsuario = await Usuario.findById(id);
   if ( !existeUsuario ) {
       throw new Error(`El id no existe ${ id }`);
@@ -24,5 +43,7 @@ const existeUsuarioPorId = async( id ) => {
 
 module.exports ={
     emailExiste,
-    existeUsuarioPorId
+    existeUsuarioPorId,
+    esRolValido,
+    existeLogin
 }
