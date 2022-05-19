@@ -7,7 +7,7 @@ const { generarJWT } = require('../helpers/generar-jwt');
 const login = async (req, res= response) => {
 
     const {correo, clave } = req.body;
-
+// console.log(correo);
     try {
                
         // verificar si el email existe
