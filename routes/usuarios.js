@@ -1,12 +1,15 @@
 const {Router} = require('express');
 const { check } = require('express-validator');
+
+
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarJWT } = require('../middlewares/validar-jwt');
+const { esAdminRole, tieneRole } = require('../middlewares/validar-roles');
 
 
 
 
-const { emailExiste, existeUsuarioPorId, esRolValido, existeLogin } = require('../helpers/db-validators');
+const { emailExiste, existeUsuarioPorId, esRolValido } = require('../helpers/db-validators');
 
 const { usuariosGet, 
         usuariosPut,
@@ -60,7 +63,7 @@ const router = Router();
          check('fecNacimiento','La fecha de Nacimiento es Obligatorio.').not().isEmpty(),
          check('telefono','El Numero de telefono es Obligatorio.').not().isEmpty(),
          check('login','El Nombre de usuario es Obligatorio.').not().isEmpty(),
-         check('login').custom(existeLogin),
+        //  check('login').custom(existeLogin),
         //  check('nacionalidad','La Nacionalidad es Obligatorio.').not().isEmpty(),
          check('departamento','No es un tipo de departamento valido').isIn([1,2,3,4,5,6,7,8,9]),
          check('tipo','No es un tipo de formato valido').isIn(['U','C']),
@@ -79,12 +82,15 @@ const router = Router();
 
 
  // ********************** DELETE  **************************************
-        router.delete('/:id',[
+        
+         router.delete('/:id', [
          validarJWT,
+         esAdminRole, // este middelware forza a que se aun administrador quin borra el registro de la BD
+        // tieneRole('ADMIN_ROLE','DRIVER_ROLE'),
         check('id', 'No es ID valido').isMongoId(),
         check('id').custom(existeUsuarioPorId),
-       validarCampos
- ], usuariosDelete);
+        validarCampos
+  ], usuariosDelete);
  // ***********************************************************************
  
  

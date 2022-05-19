@@ -77,6 +77,7 @@ const usuariosPut =  async(req, res= response) => {
     // const id = req.params.id;
     // sihubeira mas podriamos desustructurar como abajo
     const { id } = req.params;
+    
     const { _id, clave, correo, ...resto} = req.body;
 
     // TODO: validar contra la BD
@@ -86,7 +87,7 @@ const usuariosPut =  async(req, res= response) => {
       resto.clave = bcryptjs.hashSync(clave,salt);
 
     }
-    const usuario = await Usuario.findByIdAndUpdate(id, resto);
+    const usuario = await Usuario.findByIdAndUpdate(id, resto,{new:true});
 
     res.json({
         "ok": true,
@@ -140,21 +141,24 @@ const usuariosPut =  async(req, res= response) => {
 
 // *******************  DELETE    **********************************
   const usuariosDelete = async(req, res = response) => {
-    const { id } = req.params;
-
-    const uid = req.uid;
+    const { id } = req.params; 
+    
+    // const uid = req.uid;
     // borrado fisico de la BD forma no recomendada
     // const usuario = await Usuario.findByIdAndDelete(id);
     
     // Forma recomendada borrado logico solo cambiamos el estado del usaurio
     // es la mejor opcion 
-    const usuario = await Usuario.findByIdAndUpdate(id,{ estado: false});
+    // const usuario = await Usuario.findByIdAndUpdate(id,{ estado: false}, {new: true});
+    const usuario = await Usuario.findByIdAndUpdate( id, { estado: false } );
+   
+    const usuarioAutenticado = req.usuario; //aqui tenemos la informacion del usuario
 
-    res.json({
+   res.json({
         "ok": true,
         //  "msg": "delete Api - usuariosDelete",
-        //id
-        usuario, uid
+        id,
+       usuario, usuarioAutenticado
     });
   }
 // *************************************************************

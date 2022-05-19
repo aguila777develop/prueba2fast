@@ -1,31 +1,26 @@
-const bcrypt = require('bcryptjs/dist/bcrypt');
 const { response } = require('express');
-const { generarJWT } = require('../helpers/generar-jwt');
+const bcrypt = require('bcryptjs/dist/bcrypt');
 const Usuario = require('../models/usuario');
+const { generarJWT } = require('../helpers/generar-jwt');
 
 
 const login = async (req, res= response) => {
 
-    const {correo, login, clave } = req.body;
+    const {correo, clave } = req.body;
 
     try {
-        // probable solucion con 2 consultas
-        // const [ total, usuarios ] = await Promise.all([
-        //     Usuario.countDocuments(query),
-        //     Usuario.find(query)
-        //         .skip( Number( desde ) )
-        //         .limit(Number( limite ))
-        // ]);
-    
-        
+               
         // verificar si el email existe
         const usuario = await Usuario.findOne({correo});
+        // const login = await Usuario.findOne({login});
         // const nameuser = await Usuario.findOne({login});
         // const tipo= Usua
         if (!usuario) {
             return res.status(400).json({
-                msg:'Usuario y Contraseña Incorrectos -correo'
+                    msg:'Usuario y Contraseña Incorrectos -correo'
             });
+            
+            
         }
         //si el usuario esta activo
         if (!usuario.estado) {
@@ -42,6 +37,8 @@ const login = async (req, res= response) => {
                 
             });
         }
+        // verificar saldo si es conductor
+        
         //generar el JWT
         const token = await generarJWT(usuario.id);
 
@@ -53,6 +50,7 @@ const login = async (req, res= response) => {
             // login,
             // clave,
             // msg:"********",
+            
             usuario,
             token
         });

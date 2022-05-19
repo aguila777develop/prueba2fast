@@ -20,17 +20,17 @@ const existeEmail = await Usuario.findOne({correo});
   }
 }
 
-const existeLogin = async(login = '') => {
-  //Verificar si el correo existe
-const existeLogin = await Usuario.findOne({login});
-  if (existeLogin) {
-      throw new Error(`El Nombre de usuario: ${ login }, ya esta registrado `);
+// const existeLogin = async(login = '') => {
+//   //Verificar si el correo existe
+// const existeLogin = await Usuario.findOne({login});
+//   if (existeLogin) {
+//       throw new Error(`El Nombre de usuario: ${ login }, ya esta registrado `);
     
-  }
-}
+//   }
+// }
 
 
-const existeUsuarioPorId = async( id = '' ) => {
+const existeUsuarioPorId = async( id ) => {
 
   // Verificar 
   const existeUsuario = await Usuario.findById(id);
@@ -45,5 +45,5 @@ module.exports ={
     emailExiste,
     existeUsuarioPorId,
     esRolValido,
-    existeLogin
+   // existeLogin
 }

@@ -16,7 +16,7 @@ const router = Router();
 //     });
 //   });
  router.get('/',creditoConductorGet );
-   router.put('/',creditoConductorPut );
+   router.put('/:id',creditoConductorPut );
   router.post('/', creditoConductorPost);
   router.delete('/', (req, res) => {
     res.json({

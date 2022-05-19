@@ -11,10 +11,12 @@ const creditoConductorGet = (req, res = response) => {
   }
 
   const creditoConductorPut = (req, res = response) => {
-
+    const {id} = req.params;
+    
     res.json({
         "ok": true,
-        "msg": "put Api credito Conductor"
+        "msg": "put Api credito Conductor",
+        id
     });
   }
   const creditoConductorPost = async (req, res = response) => {
