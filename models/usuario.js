@@ -94,6 +94,10 @@ const UsuarioSchema = Schema({
         type: Boolean,
         default: false
     },
+    estadoOnline:{
+        type: Boolean,
+        default: true
+    },
 
     detalle:[{
         tipodoc:{
