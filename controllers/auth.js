@@ -6,13 +6,13 @@ const { generarJWT } = require('../helpers/generar-jwt');
 
 const login = async (req, res= response) => {
 
-    const {correo, clave } = req.body;
+    const {correo, clave} = req.body;
  
     try {
  
         // verificar si el email existe
         const usuario = await Usuario.findOne({correo});
-        // const login = await Usuario.findOne({login});
+       
         // const nameuser = await Usuario.findOne({login});
         // const tipo= Usua
         if (!usuario) {
@@ -25,7 +25,7 @@ const login = async (req, res= response) => {
         //si el usuario esta activo
         if (!usuario.estado) {
             return res.status(400).json({
-                msg:'Usuario y Contraseña Incorrectos -estado:false',
+                msg:'Usuario y Contraseña Incorrectos -estado:false Usuario Deshabilitado',
                 
             });
         }

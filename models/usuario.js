@@ -88,7 +88,7 @@ const UsuarioSchema = Schema({
     rol:{
         type: String,
         required: true,
-        emun:['ADMIN_ROLE','USER_ROLE', 'DRIVER_ROLE']
+        emun:['ADMIN','USER', 'DRIVER']
     },
     google:{
         type: Boolean,
@@ -102,7 +102,8 @@ const UsuarioSchema = Schema({
     detalle:[{
         tipodoc:{
             type: Number,
-            required: false,
+            required: true,
+            emun: [1,2,3,4,5,6,7]
             
         },
         nombreDoc:{
@@ -120,7 +121,7 @@ const UsuarioSchema = Schema({
 });
 
 UsuarioSchema.methods.toJSON = function (){
-    const { __v, clave, _id, ...usuario} = this.toObject();
+    const { __v, sexo, login,estadoOnline,google, rol, detalle,clave, _id, ...usuario} = this.toObject();
     usuario.uid = _id
     return usuario;
 }

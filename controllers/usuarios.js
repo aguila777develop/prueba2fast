@@ -63,6 +63,7 @@ const usuariosGet =  async(req = request, res = response) => {
 
     res.json({
         "ok": true,
+
         // "msg": "get Api - usuariosGet",
         // q,
         // nombre,
@@ -129,11 +130,12 @@ const usuariosPut =  async(req, res= response) => {
     // const {nombre, edad} = req.body;
     res.json({
         "ok": true,
+        "msg":"Usuario creado con exito"
         // "msg": "post Api - usuariosPost",
         // nombre,
         // edad
         // body
-        usuario
+        //usuario
     });
   }
 // **************************************************************

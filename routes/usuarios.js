@@ -9,7 +9,7 @@ const { esAdminRole, tieneRole } = require('../middlewares/validar-roles');
 
 
 
-const { emailExiste, existeUsuarioPorId, esRolValido } = require('../helpers/db-validators');
+const { emailExiste, existeUsuarioPorId, esRolValido, existeLogin} = require('../helpers/db-validators');
 
 const { usuariosGet, 
         usuariosPut,
@@ -39,6 +39,8 @@ const router = Router();
  router.put('/:id', [
          check('id', 'No es ID valido').isMongoId(),
          check('id').custom(existeUsuarioPorId),
+         check('login').custom(existeLogin),
+         check('clave','La clave debe de ser de 8 o màs caracteres.').isLength({min:8}),
          // Validacion de rol contra la BD
          check('rol').custom(esRolValido),
         validarCampos
@@ -51,7 +53,7 @@ const router = Router();
 // ********************** POST *************************************
  router.post('/',[
          check('nombre','El Nombre es Obligatorio.').not().isEmpty(),
-         check('clave','La clave de ser mas de 6 caracteres.').isLength({min:6}),
+         check('clave','La clave de ser 6 o màs caracteres.').isLength({min:6}),
          check('correo','El correo no es valido').isEmail(),
          check('correo').custom(emailExiste),
          // Valkidacion de rol con un String ADMIN_ROLE','USER_ROLE', 'DRIVER_ROLE
@@ -63,16 +65,16 @@ const router = Router();
          check('fecNacimiento','La fecha de Nacimiento es Obligatorio.').not().isEmpty(),
          check('telefono','El Numero de telefono es Obligatorio.').not().isEmpty(),
          check('login','El Nombre de usuario es Obligatorio.').not().isEmpty(),
-        //  check('login').custom(existeLogin),
+        check('login').custom(existeLogin),
         //  check('nacionalidad','La Nacionalidad es Obligatorio.').not().isEmpty(),
-         check('departamento','No es un tipo de departamento valido').isIn([1,2,3,4,5,6,7,8,9]),
-         check('tipo','No es un tipo de formato valido').isIn(['U','C']),
-         check('ciudad','No es un tipo de ciudad valido').isIn(['La Paz','Cochabamba','Santa Cruz de la Sierra','Beni','Pando','Tarija','Oruro','Chuquisaca','Potosi']),
-         check('expedido','No es un tipo expedido valido').isIn(['LPZ','CBA','SCZ','BEN','PAN','TJA','CHQ','ORU','PTS']),
-         check('sexo','No es un tipo sexo valido y es obligatorio').isIn(['F','M']),
-        //  check('detalle.*.tipodoc','El tipo de Documento es Obligatorio').not().isEmpty(),
-        //  check('detalle.*.nombreDoc','El Nombre  ddel Documento es Obligatorio').not().isEmpty(),
-        //  check('detalle.*.documento','No està en formato de base64 es obligatorio').isBase64(),
+         check('departamento','No es un tipo de departamento valido, Departamentos validos 1=La Paz, 2= Cochabamba, etc.').isIn([1,2,3,4,5,6,7,8,9]),
+         check('tipo','No es un tipo de formato valido, Formato valido U=Usuario,C=Conductor').isIn(['U','C']),
+         check('ciudad','No es un tipo de ciudad valido, Ciudades validas, La Paz, Cochabamba, etc').isIn(['La Paz','Cochabamba','Santa Cruz de la Sierra','Beni','Pando','Tarija','Oruro','Chuquisaca','Potosi']),
+         check('expedido','No es un tipo expedido valido, tipos validos LPZ, CBA, SCZ, etc.').isIn(['LPZ','CBA','SCZ','BEN','PAN','TJA','CHQ','ORU','PTS']),
+         check('sexo','No es un tipo sexo valido, tipo de sexo validos F= Femenino, M= Masculino').isIn(['F','M']),
+         check('detalle.*.tipodoc','El tipo de Documento es Obligatorio, Documentos validos 1=Certificado de Nacimiento 2=Carnet de Identidad 3=Certificado de Antecedentes Penales 4=Licencia de Conducir, etc.').isIn([1,2,3,4,5,6,7,8,9]),
+         check('detalle.*.nombreDoc','El Nombre  ddel Documento es Obligatorio').not().isEmpty(),
+         check('detalle.*.documento','No està en formato de base64 es obligatorio el formato base64').isBase64(),
          validarCampos
         ],usuariosPost );
 // **********************************************************************
