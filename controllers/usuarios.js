@@ -4,6 +4,7 @@ const bcryptjs = require('bcryptjs');
 
 // para grabar importamos nuestro modelo
 const Usuario = require('../models/usuario');
+const { generarJWT } = require('../helpers/generar-jwt');
 
 
 
@@ -127,15 +128,18 @@ const usuariosPut =  async(req, res= response) => {
     // Guardar en BD
     await usuario.save();
 
+    const token = await generarJWT(usuario.id);
+
     // const {nombre, edad} = req.body;
     res.json({
         "ok": true,
-        "msg":"Usuario creado con exito"
+        "msg":"Usuario creado con exito",
         // "msg": "post Api - usuariosPost",
         // nombre,
         // edad
         // body
-        //usuario
+        usuario,
+        token
     });
   }
 // **************************************************************

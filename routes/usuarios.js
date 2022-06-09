@@ -87,7 +87,7 @@ const router = Router();
         
          router.delete('/:id', [
          validarJWT,
-         esAdminRole, // este middelware forza a que se aun administrador quin borra el registro de la BD
+         //esAdminRole, // este middelware forza a que se aun administrador quin borra el registro de la BD
         // tieneRole('ADMIN_ROLE','DRIVER_ROLE'),
         check('id', 'No es ID valido').isMongoId(),
         check('id').custom(existeUsuarioPorId),

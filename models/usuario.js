@@ -25,7 +25,7 @@ const UsuarioSchema = Schema({
     },
     correo:{
         type: String,
-        required: [true, 'El correo es obligatorio'],
+        required: [false, 'El correo es obligatorio'],
         unique:true
     },
     departamento:{
@@ -44,7 +44,7 @@ const UsuarioSchema = Schema({
     },
     login:{
         type: String,
-        required: [true, 'El login o nombre de usuario es obligatorio'],
+        required: [false, 'El login o nombre de usuario es obligatorio'],
         unique: true
     },
     clave:{

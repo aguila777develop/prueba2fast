@@ -11,6 +11,7 @@ class Server{
 
         // Rutas
         this.authPath = '/api/auth';
+        this.authRenew = '/api/login/renew';
         this.usuariosPath = '/api/usuarios';
         this.posicionConductorPath = '/api/posicionConductor';
         this.creditoConductorPath= '/api/creditoConductor';
@@ -49,6 +50,7 @@ class Server{
 
     routes(){
        this.app.use(this.authPath, require('../routes/auth'));
+       this.app.use(this.authRenew, require('../routes/auth'));
        this.app.use(this.usuariosPath, require('../routes/usuarios'));
     //    this.app.use('/api/ausuario', require('../routes/driver'));
        this.app.use(this.ctokenConductorPath, require('../routes/ctokenConductor'));
@@ -65,7 +67,7 @@ class Server{
     // puerto
     listen(){
         this.app.listen(this.port, () => {
-            console.log('Servidor correindo en puerto', this.port);
+            console.log('Servidor corriendo en el puerto', this.port);
         });
     }
 
