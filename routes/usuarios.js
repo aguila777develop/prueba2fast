@@ -62,19 +62,19 @@ const router = Router();
          // Validacion de rol contra la BD
          check('rol').custom(esRolValido),
          
-         check('fecNacimiento','La fecha de Nacimiento es Obligatorio.').not().isEmpty().optional,
+         check('fecNacimiento','La fecha de Nacimiento es Obligatorio.').not().isEmpty().optional(),
          check('telefono','El Numero de telefono es Obligatorio.').not().isEmpty(),
          check('login','El Nombre de usuario es Obligatorio.').not().isEmpty(),
         check('login').custom(existeLogin),
         //  check('nacionalidad','La Nacionalidad es Obligatorio.').not().isEmpty(),
-         check('departamento','No es un tipo de departamento valido, Departamentos validos 1=La Paz, 2= Cochabamba, etc.').isIn([1,2,3,4,5,6,7,8,9]).optional,
+         check('departamento','No es un tipo de departamento valido, Departamentos validos 1=La Paz, 2= Cochabamba, etc.').isIn([1,2,3,4,5,6,7,8,9]).optional(),
          check('tipo','No es un tipo de formato valido, Formato valido U=Usuario,C=Conductor').isIn(['U','C']),
-         check('ciudad','No es un tipo de ciudad valido, Ciudades validas, La Paz, Cochabamba, etc').isIn(['La Paz','Cochabamba','Santa Cruz de la Sierra','Beni','Pando','Tarija','Oruro','Chuquisaca','Potosi']).optional,
-         check('expedido','No es un tipo expedido valido, tipos validos LPZ, CBA, SCZ, etc.').isIn(['LPZ','CBA','SCZ','BEN','PAN','TJA','CHQ','ORU','PTS']).optional,
-         check('sexo','No es un tipo sexo valido, tipo de sexo validos F= Femenino, M= Masculino').isIn(['F','M']).optional,
-         check('detalle.*.tipodoc','El tipo de Documento es Obligatorio, Documentos validos 1=Certificado de Nacimiento 2=Carnet de Identidad 3=Certificado de Antecedentes Penales 4=Licencia de Conducir, etc.').isIn([1,2,3,4,5,6,7,8,9]).optional,
-         check('detalle.*.nombreDoc','El Nombre  ddel Documento es Obligatorio').not().isEmpty().optional,
-         check('detalle.*.documento','No està en formato de base64 es obligatorio el formato base64').isBase64().optional,
+         check('ciudad','No es un tipo de ciudad valido, Ciudades validas, La Paz, Cochabamba, etc').isIn(['La Paz','Cochabamba','Santa Cruz de la Sierra','Beni','Pando','Tarija','Oruro','Chuquisaca','Potosi']).optional(),
+         check('expedido','No es un tipo expedido valido, tipos validos LPZ, CBA, SCZ, etc.').isIn(['LPZ','CBA','SCZ','BEN','PAN','TJA','CHQ','ORU','PTS']).optional(),
+         check('sexo','No es un tipo sexo valido, tipo de sexo validos F= Femenino, M= Masculino').isIn(['F','M']).optional(),
+         check('detalle.*.tipodoc','El tipo de Documento es Obligatorio, Documentos validos 1=Certificado de Nacimiento 2=Carnet de Identidad 3=Certificado de Antecedentes Penales 4=Licencia de Conducir, etc.').isIn([1,2,3,4,5,6,7,8,9]).optional(),
+         check('detalle.*.nombreDoc','El Nombre  ddel Documento es Obligatorio').not().isEmpty().optional(),
+         check('detalle.*.documento','No està en formato de base64 es obligatorio el formato base64').isBase64().optional(),
          validarCampos
         ],usuariosPost );
 // **********************************************************************
