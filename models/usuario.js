@@ -4,7 +4,7 @@ const UsuarioSchema = Schema({
 
     tipo:{
         type: String,
-        required: true,
+        required: false,
         emun: ['U','C']
     },
     nombre:{
@@ -21,21 +21,21 @@ const UsuarioSchema = Schema({
     },
     fecNacimiento:{
         type: String,
-        required: [true, 'La fecha de Nacimiento es obligatorio'],
+        required: [false, 'La fecha de Nacimiento no es obligatorio'],
     },
     correo:{
         type: String,
-        required: [false, 'El correo es obligatorio'],
+        required: [true, 'El correo es obligatorio'],
         unique:true
     },
     departamento:{
         type: Number,
-        required: true,
+        required: false,
         emun: [1,2,3,4,5,6,7,8,9]
     },
     ciudad:{
         type: String,
-        required: true,
+        required: false,
         emun: ['La Paz','Cochabamba','Santa Cruz de la Sierra','Beni','Pando','Tarija','Oruro','Chuquisaca','Potosi']
     },
     telefono:{
@@ -44,7 +44,7 @@ const UsuarioSchema = Schema({
     },
     login:{
         type: String,
-        required: [false, 'El login o nombre de usuario es obligatorio'],
+        required: [true, 'El login o nombre de usuario es obligatorio'],
         unique: true
     },
     clave:{
@@ -71,7 +71,7 @@ const UsuarioSchema = Schema({
     },
     sexo:{
         type: String,
-        required: true,
+        required: false,
         emun:['F','M']
     },
     telfEmergencia:{
@@ -102,7 +102,7 @@ const UsuarioSchema = Schema({
     detalle:[{
         tipodoc:{
             type: Number,
-            required: true,
+            required: false,
             emun: [1,2,3,4,5,6,7]
             
         },
