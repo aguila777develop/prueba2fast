@@ -62,7 +62,7 @@ const router = Router();
          // Validacion de rol contra la BD
          check('rol').custom(esRolValido),
          
-         check('fecNacimiento','La fecha de Nacimiento es Obligatorio.').not().isEmpty(),
+         check('fecNacimiento','La fecha de Nacimiento es Obligatorio.').optional,
          check('telefono','El Numero de telefono es Obligatorio.').not().isEmpty(),
          check('login','El Nombre de usuario es Obligatorio.').not().isEmpty(),
         check('login').custom(existeLogin),
